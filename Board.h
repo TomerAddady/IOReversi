@@ -22,7 +22,8 @@ public:
         void insertValue(int r, int c, char val);
         char getWinner();
         ~Board();
-
+         int getScore();
+         Board* copyBoard();
 
     };
 

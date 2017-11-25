@@ -3,8 +3,8 @@
 //
 
 #include "GameLogic.h"
-GameLogic :: GameLogic(int size)  {
-    this->b_ = new Board( size);
+GameLogic :: GameLogic()  {
+    //this->b_ = new Board( size);
 }
 GameLogic :: ~GameLogic() {
   //  delete[](this->b);
@@ -12,6 +12,6 @@ GameLogic :: ~GameLogic() {
 /**
  * printing the board
  */
-void GameLogic ::printBoard()  {
-    this->b_->PrintBoard();
+void GameLogic ::printBoard(Board * b)  {
+    b->PrintBoard();
 }

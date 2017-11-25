@@ -7,6 +7,49 @@
 #include "Board.h"
 #include <iostream>
 using namespace std;
+
+
+
+
+/**
+ * Function that copy board to new board.
+ * @return new board , exactly the same.
+ */
+Board* Board::copyBoard() {
+    Board *new_board = new Board(length_);
+    int i , j;
+    for ( i = 0; i < this->length_; ++i) {
+        for ( j = 0; j < this->length_; ++j) {
+            if (this->board_[i][j] == 'X') {
+                new_board->board_[i][j] = 'X';
+            } else if (this->board_[i][j] == 'O') {
+                new_board->board_[i][j] = 'O';
+            } else {
+                new_board->board_[i][j] = ' ';
+            }
+        }
+    }
+
+    return new_board;
+}
+
+
+/**
+ * Function that return the x's - y's.
+ * @return int - the x's - y's.
+ */
+int Board::getScore() {
+    int i , j , count = 0;
+    for ( i = 0; i < this->length_; ++i) {
+        for ( j = 0; j < this->length_; ++j) {
+            if (this->board_[i][j] == 'X') { count ++; }
+            if (this->board_[i][j] == 'O') { count--; }
+        }
+    }
+    return count;
+}
+
+
 Board :: Board(int len): length_(len) {
     this->length_ = len;
     this->board_ = new char* [len];

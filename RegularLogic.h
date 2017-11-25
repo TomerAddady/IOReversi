@@ -10,18 +10,18 @@ using namespace std;
 #include "Board.h"
 class RegularLogic: public GameLogic {
     public:
-    list<Cell> getOptions(Player* p);// return array of cells
-    void executeChoose(Player *p, Cell c);
+    list<Cell> getOptions(Player* p, Board * b);// return array of cells
+    void executeChoose(Player *p, Cell c, Board * b);
     ~RegularLogic();
-    RegularLogic(int size);
+    RegularLogic();
    // void printBoard();
-    char getWinner();
+   char getWinner(Board * b);
     private:
        // Board b;
-        bool checkIfOption(int i, int j, short moveInRow, short moveIncol, char xORo); //moveInRow is 0/1/-1 which means which direction to check.
-        bool isInRange (int i, int j);
-        void flipCells (char xORo, Cell c);
-        bool flipAllNeeded (char xORo, int i, int j, int whereX, int whereY);
+        bool checkIfOption(int i, int j, short moveInRow, short moveIncol, char xORo, Board * board); //moveInRow is 0/1/-1 which means which direction to check.
+        bool isInRange (int i, int j, Board * board);
+        void flipCells (char xORo, Cell c, Board * board);
+        bool flipAllNeeded (char xORo, int i, int j, int whereX, int whereY, Board * board);
         char getOpposit (char c);
         bool isExsit (list<Cell> ls ,Cell c);
 

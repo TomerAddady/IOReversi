@@ -13,12 +13,13 @@ class Game {
         Player *xPlayer_;//x player.
         Player *oplayer_;//o player.
         GameLogic *gameLogic_;//game logic.
+        Board* b_; //game board.
         bool isExsit (list<Cell> ls,Cell c);
 
     public:
         void printMoves(list<Cell> l, char xORo);
         void run();
-        Game();
+        Game(int size);
      ~Game();
 };
 

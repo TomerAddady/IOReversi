@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 #include "HumanPlayer.h"
-
+#include "GameLogic.h"
 HumanPlayer :: HumanPlayer(char xORo) {
     this->xORo_ = xORo;
 }
@@ -12,7 +12,7 @@ HumanPlayer :: HumanPlayer(char xORo) {
 /**
  * @return the chosen cell.
  */
-Cell HumanPlayer :: chooseMove () {
+Cell HumanPlayer :: chooseMove (GameLogic * gL, Board * b) {
     int r,c;
     cout << "please enter row col" << endl;
     cin >>r >>c ;

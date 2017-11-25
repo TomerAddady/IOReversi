@@ -10,7 +10,8 @@
 class HumanPlayer: public Player {
     public:
         HumanPlayer(char xORo);
-        Cell chooseMove();
+        Cell chooseMove(GameLogic *gL, Board * b);
+       //  Cell chooseMove();
         char getTeam();
     protected:
         char xORo_;

@@ -10,7 +10,7 @@ int main() {
  //   Board board(8); //= new Board(8);
  //   board.PrintBoard();
  //   board.FreeBoard();
-    Game* g = new Game();
+    Game* g = new Game(3);
     g->run();
     delete(g);
 }

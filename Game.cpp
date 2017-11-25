@@ -3,12 +3,16 @@
 //
 #include <iostream>
 #include "HumanPlayer.h"
+#include "IOEPlayer.h"
+
 #include "Game.h"
 #include "RegularLogic.h"
 using  namespace std;
-Game::Game() {
-    this->gameLogic_ = new RegularLogic(8);
-    this->oplayer_ = new HumanPlayer('O');
+Game::Game(int size) {
+    this->gameLogic_ = new RegularLogic();
+    this->b_ = new Board(size);
+    this->oplayer_ = new IOEPlayer('O');
+    //this->oplayer_ = new HumanPlayer('O');
     this->xPlayer_ = new HumanPlayer('X');
 }
 Game :: ~Game() {
@@ -16,6 +20,8 @@ Game :: ~Game() {
     delete(this->oplayer_);
     cout << "banana" << endl;
     delete(this->gameLogic_);
+    delete(this->b_);
+
     cout << "banana5" << endl;
 
 }
@@ -24,56 +30,54 @@ Game :: ~Game() {
  */
 void Game::run() {
 
-   // this->gameLogic_->printBoard();
-    //this->gameLogic_->executeChoose(this->xPlayer_,this->xPlayer_->chooseMove());
-    //*     this->gameLogic_->executeChoose(*this->xPlayer_,this->xPlayer_->chooseMove());
- //  this->gameLogic_->printBoard();
-   // this->gameLogic_->printBoard();
-
-
-
     // while(this->gameLogic_->getOptions(this->xPlayer_) == 0) { // if no more possible moves
     //Cell  choise;
     bool flag = true;
     list<Cell> ls;
-    ls = this->gameLogic_->getOptions(this->xPlayer_);
-    this->gameLogic_->printBoard();
-    while(!ls.empty() || !this->gameLogic_->getOptions(this->oplayer_).empty()) { // if no more possible moves
+    ls = this->gameLogic_->getOptions(this->xPlayer_, this->b_);
+    this->gameLogic_->printBoard(this->b_);
+    while(!ls.empty() || !this->gameLogic_->getOptions(this->oplayer_, this->b_).empty()) { // if no more possible moves
         //ls = this->gameLogic_->getOptions(this->xPlayer_);
         printMoves(ls, this->xPlayer_->getTeam());
         if (!ls.empty()) {
-            Cell choise = this->xPlayer_->chooseMove();
+            Cell choise = this->xPlayer_->chooseMove(this->gameLogic_, this->b_);
+           // Cell choise = this->xPlayer_->chooseMove();
             while (!isExsit(ls, choise)) {
                 cout << "NOT A Legall MOVE TRY AGAIN" << endl;
                 printMoves(ls, this->xPlayer_->getTeam());
-                choise = this->xPlayer_->chooseMove();
+                choise = this->xPlayer_->chooseMove(this->gameLogic_, this->b_);
+                //choise = this->xPlayer_->chooseMove();
             }
-            this->gameLogic_->executeChoose(this->xPlayer_, choise);
-            this->gameLogic_->printBoard();
+            this->gameLogic_->executeChoose(this->xPlayer_, choise, this->b_);
+            this->gameLogic_->printBoard(this->b_);
         } else {
             flag = false;
         }
 
-        ls = this->gameLogic_->getOptions(this->oplayer_);
+        ls = this->gameLogic_->getOptions(this->oplayer_, this->b_);
         if (ls.empty() && !flag) { // if both lists are empty
             break;
         }
         flag = true;
         printMoves(ls, this->oplayer_->getTeam());
         if(!ls.empty()) {
-            Cell choise = this->oplayer_->chooseMove();
+            Cell choise = this->oplayer_->chooseMove(this->gameLogic_, this->b_);
+            //Cell choise = this->oplayer_->chooseMove();
+
             while (!isExsit(ls, choise)) {
                 cout << "NOT A Legall MOVE TRY AGAIN" << endl;
                 printMoves(ls, this->oplayer_->getTeam());
-                choise = this->oplayer_->chooseMove();
+                choise = this->oplayer_->chooseMove(this->gameLogic_, this->b_);
+               // choise = this->oplayer_->chooseMove();
+
             }
-            this->gameLogic_->executeChoose(this->oplayer_, choise);
-            this->gameLogic_->printBoard();
+            this->gameLogic_->executeChoose(this->oplayer_, choise, this->b_);
+            this->gameLogic_->printBoard(this->b_);
         }
-        ls = this->gameLogic_->getOptions(this->xPlayer_);
+        ls = this->gameLogic_->getOptions(this->xPlayer_, this->b_);
     }
 
-    char res = this->gameLogic_->getWinner();
+    char res = this->gameLogic_->getWinner(this->b_);
     if(res == 'T') {
         cout << "Its a Draw" << endl;
     } else {
