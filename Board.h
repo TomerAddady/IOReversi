@@ -19,7 +19,8 @@ public:
         char getValueAt(int r, int c);
         void PrintBoard();
         void FreeBoard();
-        void insertValue(int r, int c, char val);
+        //void insertValue(int r, int c, char val);
+        int insertValue(int r, int c, char val);
         char getWinner();
         ~Board();
          int getScore();

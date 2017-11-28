@@ -12,8 +12,7 @@ class IOEPlayer: public Player  {
     public:
         IOEPlayer(char xORo);
        // ~IOEPlayer();
-
-    Cell chooseMove(GameLogic * gL, Board * b);
+        Cell chooseMove(GameLogic * gL, Board * b);
         //  Cell chooseMove();
         char getTeam();
     protected:

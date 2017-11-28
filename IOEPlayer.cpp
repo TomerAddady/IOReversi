@@ -54,6 +54,8 @@ Cell IOEPlayer::chooseMove(GameLogic * gL, Board * b) {
         delete(copy1);
     }
     delete(tmp);
-    finalCell.printCell();cout <<""<< endl;
+    cout <<this->xORo_<<" played :";
+    finalCell.printCell();
+    cout <<""<< endl;
     return (finalCell);
 }

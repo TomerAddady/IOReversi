@@ -65,18 +65,21 @@ Board :: Board(int len): length_(len) {
     this->board_ [this->length_ / 2 ][this->length_ / 2 - 1] = 'X';
     this->board_ [this->length_ / 2][this->length_ / 2] = 'O';
 }
+/**
+ * Board destractor.
+ */
 Board::~Board() {
-    cout << "banana22" << endl;
+    //cout << "banana22" << endl;
     for(int j = 0; j < this->length_; j++) {
         delete[](this->board_[j]);
 
 
     }
-    cout << "banana3" << endl;
+   // cout << "banana3" << endl;
     delete[](this->board_);
   //   delete(this->board_);
 
-    cout << "banana4" << endl;
+   // cout << "banana4" << endl;
 
 }
 /**
@@ -113,8 +116,12 @@ void Board::FreeBoard() {
  * @param c col.
  * @param val  value.
  */
-void  Board::insertValue(int r, int c, char val) {
-    this->board_[r][c] = val;
+int  Board::insertValue(int r, int c, char val) {
+    if (r < this->length_ && c < this->length_ && r >= 0 && c >= 0) { // if in range.
+        this->board_[r][c] = val;
+        return 1;
+    }
+    return 0;
     //  char x = board_[r][c];
     //char banana = 'f';
 }
@@ -141,6 +148,7 @@ char Board :: getWinner() {
             }
         }
     }
+    cout << "x - " << xCount << "o - " << oCount << endl;
     if (xCount > oCount)
         return 'X';
     else if (oCount > xCount) {
