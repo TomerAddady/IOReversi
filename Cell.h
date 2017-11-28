@@ -13,8 +13,10 @@ class Cell {
         int row_;
         int col_;
     public:
-        int getRow();
-        int getCol();
+    //    bool operator == (Cell & c1);
+        bool operator == (Cell &c1) const;
+        int getRow() const ;
+        int getCol() const ;
         Cell(int r, int c);
         void printCell();
 };

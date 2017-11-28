@@ -16,15 +16,30 @@ Cell ::Cell(int r, int c) : row_(r) , col_(c) {
 /**
  * @return col of the cell.
  */
-int Cell::getCol() {
+int Cell::getCol() const {
     return this->col_;
 }
 /**
  * @return row of the cell.
  */
-int Cell::getRow() {
+int Cell::getRow() const {
     return this->row_;
 }
+/**
+bool Cell:: operator == ( Cell & c1) {
+    if (this->getCol() == c1.getCol() && c1.getRow() == this->getRow()) {
+        return true;
+    }
+    return false;
+}*/
+bool Cell :: operator == (Cell &c1) const {
+    if (this->getCol() == c1.getCol() && c1.getRow() == this->getRow()) {
+        return true;
+    }
+    return false;
+}
+
+
 /**
  * print the cell.
  */

@@ -9,11 +9,22 @@
 #include "RegularLogic.h"
 using  namespace std;
 Game::Game(int size) {
-    this->gameLogic_ = new RegularLogic();
-    this->b_ = new Board(size);
-    this->oplayer_ = new IOEPlayer('O');
-    //this->oplayer_ = new HumanPlayer('O');
-    this->xPlayer_ = new HumanPlayer('X');
+    char r;
+    cout << "if you want to play against the comuter press y if not press other key "<< endl;
+    cin >>r;
+    if (r == 'y') {
+        this->gameLogic_ = new RegularLogic();
+        this->b_ = new Board(size);
+        this->oplayer_ = new IOEPlayer('O');
+        //this->oplayer_ = new HumanPlayer('O');
+        this->xPlayer_ = new HumanPlayer('X');
+    } else {
+        this->gameLogic_ = new RegularLogic();
+        this->b_ = new Board(size);
+        //this->oplayer_ = new IOEPlayer('O');
+        this->oplayer_ = new HumanPlayer('O');
+        this->xPlayer_ = new HumanPlayer('X');
+    }
 }
 Game :: ~Game() {
     delete(this->xPlayer_);
@@ -110,10 +121,13 @@ void Game ::printMoves(list<Cell> l, char xORo) {
     cout  << "your possible moves: " ;
     if (l.empty()) {
         cout << "No possible moves. Play passes back to the other player. Press any key to continue" <<endl;
+        //char dummy;
+       // cin.clear(); // clears error flags
         cin.get();
-        cin.get();
-        // _getch();
-       // system("read");
+        cin.clear(); // clears error flags
+        cin.ignore();
+
+        // system("read");
     } else {
         while (!l.empty()) {
             l.front().printCell();
