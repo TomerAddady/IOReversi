@@ -148,7 +148,7 @@ char Board :: getWinner() {
             }
         }
     }
-    cout << "x - " << xCount << "o - " << oCount << endl;
+  //  cout << "x - " << xCount << "o - " << oCount << endl;
     if (xCount > oCount)
         return 'X';
     else if (oCount > xCount) {

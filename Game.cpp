@@ -4,15 +4,16 @@
 #include <iostream>
 #include "HumanPlayer.h"
 #include "IOEPlayer.h"
-
+#include "ConsolePainter.h"
 #include "Game.h"
 #include "RegularLogic.h"
 using  namespace std;
 Game::Game(int size) {
-    char r;
+   /** char r;
     cout << "if you want to play against the comuter press y if not press other key "<< endl;
-    cin >>r;
-    if (r == 'y') {
+    cin >>r;*/
+    ConsolePainter *painter = new ConsolePainter ();
+    if (painter->printMenu() == 1) {
         this->gameLogic_ = new RegularLogic();
         this->b_ = new Board(size);
         this->oplayer_ = new IOEPlayer('O');
@@ -25,15 +26,16 @@ Game::Game(int size) {
         this->oplayer_ = new HumanPlayer('O');
         this->xPlayer_ = new HumanPlayer('X');
     }
+    delete(painter);
 }
 Game :: ~Game() {
     delete(this->xPlayer_);
     delete(this->oplayer_);
-    cout << "banana" << endl;
+   // cout << "banana" << endl;
     delete(this->gameLogic_);
     delete(this->b_);
 
-    cout << "banana5" << endl;
+   // cout << "banana5" << endl;
 
 }
 /**
@@ -61,6 +63,11 @@ void Game::run() {
             }
             this->gameLogic_->executeChoose(this->xPlayer_, choise, this->b_);
             this->gameLogic_->printBoard(this->b_);
+            //print res
+            cout << this->xPlayer_->getTeam() << " played: ";
+            choise.printCell();
+            cout <<""<< endl << endl;
+
         } else {
             flag = false;
         }
@@ -84,6 +91,11 @@ void Game::run() {
             }
             this->gameLogic_->executeChoose(this->oplayer_, choise, this->b_);
             this->gameLogic_->printBoard(this->b_);
+            //print res
+            cout << this->oplayer_->getTeam() << " played: ";
+            choise.printCell();
+            cout <<""<< endl << endl;
+
         }
         ls = this->gameLogic_->getOptions(this->xPlayer_, this->b_);
     }

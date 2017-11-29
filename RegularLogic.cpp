@@ -14,9 +14,9 @@ RegularLogic::RegularLogic(): GameLogic() {
  * deconstractor.
  */
 RegularLogic::~RegularLogic() {
-    cout << "banana11" << endl;
+    //cout << "banana11" << endl;
   //  delete(this->b);
-    cout << "banana4.5" << endl;
+    //cout << "banana4.5" << endl;
 
 }
 
@@ -191,6 +191,7 @@ char RegularLogic :: getWinner() {
 void RegularLogic :: executeChoose(Player *p, Cell c, Board * b) {
     ((b))->insertValue(c.getRow(), c.getCol(), (*p).getTeam());
     flipCells((*p).getTeam(), c, b);
+
 }
 /**
 void RegularLogic :: executeChoose(Player *p, Cell c) {

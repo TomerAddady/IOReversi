@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-/**
+/*
 int main(int argc, char ** argv) {
  //   Board board(8); //= new Board(8);
  //   board.PrintBoard();

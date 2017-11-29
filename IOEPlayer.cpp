@@ -8,14 +8,19 @@
 IOEPlayer::IOEPlayer(char c) {
     this->xORo_ = c;
 }
-/*
-IOEPlayer::IOEPlayer() {
-    this->xORo_ = 'O';
-}*/
+/**
+ * return player team.
+ * @return x or o.
+ */
 char IOEPlayer::getTeam() {
     return this->xORo_;
 }
-
+/**
+ * return the computer choose according to min-max algorithm.
+ * @param gL the game logic object.
+ * @param b the game board.
+ * @return the cell choosen.
+ */
 Cell IOEPlayer::chooseMove(GameLogic * gL, Board * b) {
     Board *original = b;
     Player * p;
@@ -54,8 +59,8 @@ Cell IOEPlayer::chooseMove(GameLogic * gL, Board * b) {
         delete(copy1);
     }
     delete(tmp);
-    cout <<this->xORo_<<" played :";
+    /*cout <<this->xORo_<<" played :";
     finalCell.printCell();
-    cout <<""<< endl;
+    cout <<""<< endl;*/
     return (finalCell);
 }
