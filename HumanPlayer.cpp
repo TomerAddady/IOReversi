@@ -27,6 +27,7 @@ Cell HumanPlayer :: chooseMove (GameLogic * gL, Board * b) {
         }
     }
     Cell re = Cell(r - 1,c - 1);
+    this->currentMove = re;
     return re;
 }
 /**
@@ -34,4 +35,8 @@ Cell HumanPlayer :: chooseMove (GameLogic * gL, Board * b) {
  */
 char HumanPlayer :: getTeam() {
     return this->xORo_;
+}
+
+Cell HumanPlayer::lastMove() {
+    return this->currentMove;
 }

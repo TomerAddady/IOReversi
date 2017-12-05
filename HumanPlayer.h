@@ -13,8 +13,10 @@ class HumanPlayer: public Player {
         Cell chooseMove(GameLogic *gL, Board * b);
        //  Cell chooseMove();
         char getTeam();
-    protected:
+        Cell lastMove();
+protected:
         char xORo_;
+        Cell currentMove;
 
 };
 

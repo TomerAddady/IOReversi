@@ -12,13 +12,20 @@ class Cell {
     private:
         int row_;
         int col_;
+        char stringCell[4096];
     public:
     //    bool operator == (Cell & c1);
         bool operator == (Cell &c1) const;
         int getRow() const ;
         int getCol() const ;
+        char *getStringCell();
         Cell(int r, int c);
-        void printCell();
+
+    Cell();
+
+    void printCell();
+
+    char* makeString();
 };
 
 
