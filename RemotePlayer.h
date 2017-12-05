@@ -13,19 +13,20 @@
 #include <unistd.h>
 #include <string.h>
 #include "Player.h"
+#include "Client.h"
 
 class RemotePlayer: public Player {
 public:
-    RemotePlayer();
+    RemotePlayer(Client client);
     Cell chooseMove(GameLogic *gl , Board *b);
     char getTeam();
-    void sendToSocket(int sock , char *data , struct sockaddr_in &sin);
+    void sendToSocket(char *data);
     void receiveFromSocket(int sock);
     void oppMove (Cell c);
     Cell lastMove();
 protected:
     char xORo_;
-    struct sockaddr_in sin;
+    Client client;
     int firstPlayer;
     char bufferCurrentAns[4096];
     int sock;

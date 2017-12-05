@@ -4,16 +4,16 @@
 
 #include <cstdlib>
 #include "RemotePlayer.h"
+#include "Client.h"
+
 /**
  * Function that recieve from socket.
  * @param sock - the sock we send.
  */
 void RemotePlayer::receiveFromSocket(int sock) {
-    struct sockaddr_in from;
-    unsigned int from_len = sizeof(struct sockaddr_in);
-    char buffer[4096];
-    memset(&buffer , 0 , sizeof(buffer));
-    int bytes = recvfrom(sock , buffer , sizeof(buffer) ,0, (struct sockaddr *) &from , &from_len);
+    int bytes;
+    char *buffer;
+    buffer = client.getMove();
     if (bytes < 0) {
         perror("error reading in receive from socket");
     }
@@ -29,29 +29,15 @@ void RemotePlayer::receiveFromSocket(int sock) {
  * @param data - the move.
  * @param sin - the socket.
  */
-void RemotePlayer::sendToSocket(int sock, char *data, struct sockaddr_in &sin) {
-    int sent_bytes = sendto(sock , data,strlen(data), 0 , (struct sockaddr *) &sin , sizeof(sin));
-    if (sent_bytes < 0) { perror("error sending to socker"); }
+void RemotePlayer::sendToSocket(char *data) {
+    client.sendMove(data);
 }
 /**
  * Constractor.
  * the ip adress is our adress , the port is random. Need to change it because we have two players.
  */
-RemotePlayer ::RemotePlayer() {
-    firstPlayer = 0;
-    struct sockaddr_in sin;
-    const char* ip_adress = "127.0.0.1";
-    const int port_no = 5555;//need to change random.
-    memset(&sin , 0 , sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = inet_addr("127.0.0.1");
-    sin.sin_port = htons(port_no);
-
-    sock = socket(AF_INET , SOCK_DGRAM , 0);
-    if (sock < 0) {
-        perror("error creatin socket");
-    }
-    sendToSocket(sock , "ready" , sin);
+RemotePlayer ::RemotePlayer(Client client) : client(client) {
+    client = Client("127.0.0.1" , 8000);
     receiveFromSocket(sock);
     //at the first time , the server give an answer different the x,y so it effect it.
     if (firstPlayer == 0) { this->xORo_ = 'X'; }
@@ -94,7 +80,7 @@ Cell RemotePlayer::chooseMove(GameLogic *gl, Board *b) {
  * @param c - the move.
  */
 void RemotePlayer::oppMove(Cell c) {
-    sendToSocket(sock , c.makeString() , sin);
+    sendToSocket(c.makeString());
 }
 /**
  * Our last move.
