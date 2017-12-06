@@ -3,8 +3,8 @@
 //
 #include <iostream>
 using namespace std;
-#include "HumanPlayer.h"
-#include "GameLogic.h"
+#include "../include/HumanPlayer.h"
+#include "../include/GameLogic.h"
 HumanPlayer :: HumanPlayer(char xORo) {
     this->xORo_ = xORo;
 }
@@ -27,7 +27,6 @@ Cell HumanPlayer :: chooseMove (GameLogic * gL, Board * b) {
         }
     }
     Cell re = Cell(r - 1,c - 1);
-    this->currentMove = re;
     return re;
 }
 /**
@@ -37,6 +36,6 @@ char HumanPlayer :: getTeam() {
     return this->xORo_;
 }
 
-Cell HumanPlayer::lastMove() {
-    return this->currentMove;
+void HumanPlayer::oppMove(Cell move) {
+
 }

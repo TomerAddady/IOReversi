@@ -2,16 +2,15 @@
 // Created by tomer on 05/12/17.
 //
 
-#ifndef HOMEWORK_CLEINT_H
-#define HOMEWORK_CLEINT_H
-
+#ifndef HOMEWORK_CLIENT_H
+#define HOMEWORK_CLIENT_H
 
 class Client {
 public:
     Client(const char *serverIP , int serverPort);
     void connectToServer();
 
-    void sendMove(char move[4096]);
+    void sendMove(char *move);
     char* getMove();
 
 private:
@@ -21,4 +20,4 @@ private:
 };
 
 
-#endif //HOMEWORK_CLEINT_H
+#endif //HOMEWORK_CLIENT_H

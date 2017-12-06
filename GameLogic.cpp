@@ -2,7 +2,7 @@
 // Created by tomer on 02/11/17.
 //
 
-#include "GameLogic.h"
+#include "../include/GameLogic.h"
 GameLogic :: GameLogic()  {
     //this->b_ = new Board( size);
 }

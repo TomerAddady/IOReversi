@@ -1,10 +1,14 @@
 //
-// Created by tomer on 03/12/17.
+// Created by tomer on 05/12/17.
 //
 
+#include "../include/RemotePlayer.h"
+
+
+
 #include <cstdlib>
-#include "RemotePlayer.h"
-#include "Client.h"
+#include "../include/RemotePlayer.h"
+#include "../include/Client.h"
 
 /**
  * Function that recieve from socket.
@@ -17,11 +21,16 @@ void RemotePlayer::receiveFromSocket(int sock) {
     if (bytes < 0) {
         perror("error reading in receive from socket");
     }
-    if (strcmp(buffer , "first")) { firstPlayer = 0; }
-    if (strcmp(buffer , "second")) { firstPlayer = 1; }
+    if (strcmp(buffer , "first")==0) {
+        firstPlayer = 0;
+    }
+    else if (strcmp(buffer , "second")==0) {
+        firstPlayer = 1;
+    }
     else {
         strcpy(bufferCurrentAns , buffer);
     }
+    delete(buffer);
 }
 /**
  * Function that send the move.
@@ -36,12 +45,13 @@ void RemotePlayer::sendToSocket(char *data) {
  * Constractor.
  * the ip adress is our adress , the port is random. Need to change it because we have two players.
  */
-RemotePlayer ::RemotePlayer(Client client) : client(client) {
-    client = Client("127.0.0.1" , 8000);
+RemotePlayer ::RemotePlayer() : client(client) {
+    client = Client("127.0.0.1" , 9000);
     receiveFromSocket(sock);
     //at the first time , the server give an answer different the x,y so it effect it.
-    if (firstPlayer == 0) { this->xORo_ = 'X'; }
-    if (firstPlayer == 1) { this->xORo_ = 'O'; }
+    if (firstPlayer == 0) { this->xORo_ = 'O'; }
+    if (firstPlayer == 1) { this->xORo_ = 'X'; }
+
 
 }
 /**
@@ -51,13 +61,13 @@ RemotePlayer ::RemotePlayer(Client client) : client(client) {
  * @return - the cell means the move.
  */
 Cell RemotePlayer::chooseMove(GameLogic *gl, Board *b) {
-    char x[4096] = " ";
-    char y[4096] = " ";
+    char x[4096] = "";
+    char y[4096] = "";
     int comma = 0;
     int i = 0;
     receiveFromSocket(sock);
     for(i = 0; i < strlen(bufferCurrentAns); i++) {
-       // if (bufferCurrentAns[i] == NULL) { break; }
+        // if (bufferCurrentAns[i] == NULL) { break; }
         if (bufferCurrentAns[i] == ',') {
             comma = 1;
             continue;
@@ -65,13 +75,12 @@ Cell RemotePlayer::chooseMove(GameLogic *gl, Board *b) {
         if (comma == 0) {
             strncat(x, &bufferCurrentAns[i] , 1);
         } else {
-            strncat(x, &bufferCurrentAns[i] , 1);
+            strncat(y, &bufferCurrentAns[i] , 1);
         }
     }
-
     int r = atoi(x);
     int c = atoi(y);
-    Cell re = Cell(r - 1,c - 1);
+    Cell re = Cell(r -1,c - 1);
     this->currentMove = re;
     return re;
 }
@@ -80,8 +89,11 @@ Cell RemotePlayer::chooseMove(GameLogic *gl, Board *b) {
  * @param c - the move.
  */
 void RemotePlayer::oppMove(Cell c) {
-    sendToSocket(c.makeString());
+    char *s = new char(sizeof(c.makeString()));
+    strcpy(s , c.makeString());
+    sendToSocket(s);
 }
+
 /**
  * Our last move.
  * @return - the cell of the last move.

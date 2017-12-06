@@ -2,7 +2,8 @@
 // Created by tomer on 05/12/17.
 //
 
-#include "Client.h"
+#include "../include/Client.h"
+
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -14,9 +15,10 @@
 using namespace std;
 
 Client::Client(const char *serverIP1, int serverPort1): serverIP(serverIP) , serverPort(serverPort) ,
-                                                      clientSocket(0) {
+                                                        clientSocket(0) {
     serverIP = serverIP1;
     serverPort = serverPort1;
+    connectToServer();
 }
 
 void Client::connectToServer() {
@@ -35,10 +37,10 @@ void Client::connectToServer() {
     }
 
     struct sockaddr_in  serverAddress;
-    bzero((char*)&address , sizeof(address));
+    bzero((char * )&address , sizeof(address));
 
     serverAddress.sin_family = AF_INET;
-    memcpy((char*)&serverAddress.sin_addr.s_addr , (char*)server->h_addr , server->h_length);
+    memcpy((char * )&serverAddress.sin_addr.s_addr , (char*)server->h_addr , server->h_length);
 
     serverAddress.sin_port = htons(serverPort);
     if (connect(clientSocket , (struct sockaddr *)&serverAddress , sizeof(serverAddress)) == -1) {
@@ -46,8 +48,9 @@ void Client::connectToServer() {
     }
 }
 
-void Client::sendMove(char move[4096]) {
+void Client::sendMove(char *move) {
     int n = write(clientSocket , move , sizeof(move));
+    delete(move);
     if (n == -1) {
         throw "Error";
     }
@@ -55,6 +58,10 @@ void Client::sendMove(char move[4096]) {
 
 char* Client::getMove() {
     char move[4096];
-    int n = read(clientSocket , &move , sizeof(move));
-    return move;
+    int n = read(clientSocket , move , 4096);
+
+    char *buff = new char(sizeof(move));
+    strcpy(buff , move);
+    return buff;
 }
+

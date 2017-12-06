@@ -1,9 +1,10 @@
 //
-// Created by tomer on 03/12/17.
+// Created by tomer on 05/12/17.
 //
 
 #ifndef HOMEWORK_REMOTEPLAYER_H
 #define HOMEWORK_REMOTEPLAYER_H
+
 
 #include <iostream>
 #include <sys/socket.h>
@@ -17,7 +18,7 @@
 
 class RemotePlayer: public Player {
 public:
-    RemotePlayer(Client client);
+    RemotePlayer();
     Cell chooseMove(GameLogic *gl , Board *b);
     char getTeam();
     void sendToSocket(char *data);
@@ -32,6 +33,5 @@ protected:
     int sock;
     Cell currentMove;
 };
-
 
 #endif //HOMEWORK_REMOTEPLAYER_H

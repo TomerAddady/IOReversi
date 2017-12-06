@@ -17,13 +17,12 @@ class GameLogic;
 class Player {
     public:
       //  virtual  Cell chooseMove() = 0;
-    virtual void oppMove(Cell cell) { }
+
      virtual  Cell chooseMove(GameLogic *gL, Board * b) = 0;
         virtual char getTeam() = 0;
-        virtual Cell lastMove() { return currentMove; }
+    virtual void oppMove(Cell move) { }
     protected:
         char xORo_;
-        Cell currentMove;
 
 };
 

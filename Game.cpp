@@ -1,12 +1,15 @@
 //
-// Created by tomer on 02/11/17.
+// tomer addady - 207162678
+// tomer dayan - 209372499
 //
 #include <iostream>
-#include "HumanPlayer.h"
-#include "IOEPlayer.h"
-#include "ConsolePainter.h"
-#include "Game.h"
-#include "RegularLogic.h"
+#include "../include/HumanPlayer.h"
+#include "../include/IOEPlayer.h"
+#include "../include/ConsolePainter.h"
+#include "../include/Game.h"
+#include "../include/RegularLogic.h"
+#include "../include/RemotePlayer.h"
+
 using  namespace std;
 Game::Game(int size) {
    /** char r;
@@ -19,6 +22,19 @@ Game::Game(int size) {
         this->oplayer_ = new IOEPlayer('O');
         //this->oplayer_ = new HumanPlayer('O');
         this->xPlayer_ = new HumanPlayer('X');
+    } else if (painter -> printMenu() == 2) {
+        this->gameLogic_ = new RegularLogic();
+        this->b_ = new Board(size);
+
+        Player *c = new RemotePlayer();
+        if (c->getTeam() == 'O') {
+            this->oplayer_ = c;
+            this->xPlayer_ = new HumanPlayer('O');
+
+        } else {
+            this->xPlayer_ = c;
+            this->oplayer_ = new HumanPlayer('O');
+        }
     } else {
         this->gameLogic_ = new RegularLogic();
         this->b_ = new Board(size);
@@ -26,6 +42,7 @@ Game::Game(int size) {
         this->oplayer_ = new HumanPlayer('O');
         this->xPlayer_ = new HumanPlayer('X');
     }
+
     delete(painter);
 }
 Game :: ~Game() {
@@ -47,6 +64,7 @@ void Game::run() {
     //Cell  choise;
     bool flag = true;
     list<Cell> ls;
+
     ls = this->gameLogic_->getOptions(this->xPlayer_, this->b_);
     this->gameLogic_->printBoard(this->b_);
     while(!ls.empty() || !this->gameLogic_->getOptions(this->oplayer_, this->b_).empty()) { // if no more possible moves
@@ -67,6 +85,7 @@ void Game::run() {
             cout << this->xPlayer_->getTeam() << " played: ";
             choise.printCell();
             cout <<""<< endl << endl;
+            oplayer_->oppMove(choise);
 
         } else {
             flag = false;
@@ -95,6 +114,7 @@ void Game::run() {
             cout << this->oplayer_->getTeam() << " played: ";
             choise.printCell();
             cout <<""<< endl << endl;
+            xPlayer_->oppMove(choise);
 
         }
         ls = this->gameLogic_->getOptions(this->xPlayer_, this->b_);

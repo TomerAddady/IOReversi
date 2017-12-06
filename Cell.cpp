@@ -2,9 +2,8 @@
 // Created by tomer on 31/10/17.
 //
 #include <iostream>
-#include "Cell.h"
 #include <cstring>
-
+#include "../include/Cell.h"
 using namespace std;
 /**
  * constractor.
@@ -48,6 +47,7 @@ bool Cell :: operator == (Cell &c1) const {
 void Cell :: printCell() {
     cout << "(" <<  this->row_ + 1 << "," << this->col_ + 1<<") ";
 }
+
 /**
  * Convert a cell to string.
  * @return char* that its the cell.
@@ -83,7 +83,7 @@ char* Cell::makeString() {
         if (digit == 9) { strncat(f ,&(nine) , 1);}
         sec = sec / 10;
     }
-     strncat(f ,&(comma) , 1);
+    strncat(f ,&(comma) , 1);
 
     while (fist != 0) {
         digit = fist % 10;
@@ -106,10 +106,9 @@ char* Cell::makeString() {
     }
     int x = this->row_ + 1;
     int y = this->col_ + 1;
-    strcpy(stringCell , tosent);
+    //strcpy(stringCell , tosent);
     char *send = new char(strlen(tosent));
     strcpy(send , tosent);
-
     return send;
 }
 /**

@@ -4,7 +4,7 @@
 // 207162678
 //
 
-#include "Board.h"
+#include "../include/Board.h"
 #include <iostream>
 using namespace std;
 

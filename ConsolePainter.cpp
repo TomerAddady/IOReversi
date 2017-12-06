@@ -3,7 +3,7 @@
 //
 #include <iostream>
 //#include <algorithm>
-#include "ConsolePainter.h"
+#include "../include/ConsolePainter.h"
 using  namespace std;
 
 
@@ -13,6 +13,9 @@ int ConsolePainter:: printMenu() {
     cin >>r;
     if (r == 'y') {
         return 1;
+    }
+    if (r == 'v') {
+        return 2;
     }
     return 0;
 }

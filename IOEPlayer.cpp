@@ -1,9 +1,9 @@
 //
 // Created by tomer on 24/11/17.
 //
-#include "IOEPlayer.h"
-#include "GameLogic.h"
-#include "HumanPlayer.h"
+#include "../include/IOEPlayer.h"
+#include "../include/GameLogic.h"
+#include "../include/HumanPlayer.h"
 
 IOEPlayer::IOEPlayer(char c) {
     this->xORo_ = c;

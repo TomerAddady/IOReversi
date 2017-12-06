@@ -2,7 +2,7 @@
 // Created by tomer on 02/11/17.
 //
 #include <list>
-#include "RegularLogic.h"
+#include "../include/RegularLogic.h"
 /**
  * constractor.
  * @param size .
